@@ -1,5 +1,5 @@
 # Sistema de Colaboración Open Source Santiago
-# Alias: Open Quest Guild
+# Alias: Open Quest
 *A gamified collaboration system for Open Source adventurers.*
 **Versión 1.0**
 
