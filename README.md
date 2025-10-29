@@ -31,10 +31,12 @@ El sistema utiliza un enfoque colaborativo y gamificado para incentivar a los pa
 
 Clases disponibles, cada una asociada a una especialidad técnica:
 
-1. **🛡️ Engineer (Platform):** Maestro en plataformas robustas y escalables.  
-2. **🔬 Scientist (AI):** Innovador en inteligencia artificial y análisis de datos.  
-3. **⚔️ Warrior (AppDev):** Campeón del desarrollo de aplicaciones y microservicios.  
+1. **🛡️ Engineer (Platform):** Maestro en plataformas robustas y escalables.
+2. **🔬 Scientist (AI):** Innovador en inteligencia artificial y análisis de datos.
+3. **⚔️ Warrior (AppDev):** Campeón del desarrollo de aplicaciones y microservicios.
 4. **🪄 Mage (Automation):** Dominador de la automatización y los flujos de trabajo.
+
+Para profundizar en cada arquetipo y elegir tu senda, revisa la [Guía de Clases de la Comunidad](clases/README.md).
 
 ---
 
