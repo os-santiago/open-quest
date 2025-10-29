@@ -11,6 +11,7 @@ modelo durante al menos diez años de colaboración continua.
 - [Economía y recompensas](economia-recompensas.md)
 - [Progresión a largo plazo](progresion-largo-plazo.md)
 - [Indicadores y consideraciones](indicadores-consideraciones.md)
+- [Sistema de revisión y publicación](revision-automatizada.md)
 
 Cada archivo detalla componentes específicos del sistema y puede ampliarse conforme evolucione el
 programa de misiones.
