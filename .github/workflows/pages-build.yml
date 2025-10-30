@@ -1,0 +1,74 @@
+name: Pages Build
+
+on:
+  workflow_run:
+    workflows:
+      - Mission Merge
+    types:
+      - completed
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    if: >-
+      ${{ github.event_name == 'workflow_dispatch' ||
+          (github.event_name == 'workflow_run' &&
+           github.event.workflow_run.conclusion == 'success') }}
+    runs-on: ubuntu-latest
+    environment:
+      name: os-santiago-pages
+      url: https://os-santiago.github.io/open-quest/
+    env:
+      TARGET_REPOSITORY: os-santiago/os-santiago.github.io
+      SITE_DIRECTORY: _site
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build static site
+        run: npm run build
+
+      - name: Publish to os-santiago.github.io
+        env:
+          OS_SANTIAGO_PAGES_TOKEN: ${{ secrets.OS_SANTIAGO_PAGES_TOKEN }}
+        run: |
+          set -euo pipefail
+
+          if [ -z "${OS_SANTIAGO_PAGES_TOKEN:-}" ]; then
+            echo "OS_SANTIAGO_PAGES_TOKEN secret is not configured" >&2
+            exit 1
+          fi
+
+          git config --global user.name "open-quest-bot"
+          git config --global user.email "bot@open-quest.dev"
+
+          temp_dir="$(mktemp -d)"
+          git clone --depth 1 "https://${OS_SANTIAGO_PAGES_TOKEN}@github.com/${TARGET_REPOSITORY}.git" "$temp_dir"
+
+          find "$temp_dir" -mindepth 1 -maxdepth 1 ! -name '.git' -exec rm -rf {} +
+          cp -R "${SITE_DIRECTORY}/". "$temp_dir/"
+
+          cd "$temp_dir"
+          if [ -n "$(git status --short)" ]; then
+            git add .
+            git commit -m "Deploy from ${GITHUB_REPOSITORY}@${GITHUB_SHA}"
+            git push origin HEAD
+          else
+            echo "No changes to deploy."
+          fi
