@@ -93,5 +93,31 @@ El siguiente paso en la evolución del Sistema de Colaboración es el desarrollo
 
 ### Impacto y Objetivos:
 - Crear una **plataforma de desarrollo personal** que combine aprendizaje, práctica y colaboración.  
-- Facilitar la mentoría y el intercambio de conocimiento entre participantes.  
+- Facilitar la mentoría y el intercambio de conocimiento entre participantes.
 - Atraer a más contribuyentes al ecosistema Open Source a través de una experiencia única y motivadora.
+
+---
+
+## Sitio estático y dashboards automáticos
+
+En la etapa 4 del plan incremental se incorpora un sitio estático generado con
+[Eleventy](https://www.11ty.dev/) que consume los artefactos publicados en
+`docs/data/` y el resumen `mission-merge-summary.md`.
+
+### Cómo ejecutar el sitio localmente
+
+```bash
+npm install
+npm run dev
+```
+
+El primer comando instala las dependencias (incluido Eleventy) y el segundo
+inicia un servidor local con recarga automática. Para generar la versión lista
+para publicar utiliza:
+
+```bash
+npm run build
+```
+
+El resultado se compila en `_site/`, que está excluido del repositorio para
+mimificar el comportamiento de GitHub Pages.

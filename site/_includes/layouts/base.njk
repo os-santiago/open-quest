@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ title | default("Open Quest Dashboard") }}</title>
+    <meta name="description" content="Panel público con datos generados por los workflows de Open Quest.">
+    <link rel="stylesheet" href="/assets/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container">
+        <h1 class="site-title"><a href="/">Open Quest</a></h1>
+        <p class="site-subtitle">Panel de progreso generado a partir de artefactos automatizados.</p>
+      </div>
+    </header>
+    <main class="container">
+      {{ content | safe }}
+    </main>
+    <footer class="site-footer">
+      <div class="container">
+        <p>Actualizado automáticamente con los resultados de <code>mission-merge</code>.</p>
+        <p>
+          <a href="https://github.com/os-santiago/open-quest">Repositorio en GitHub</a>
+          ·
+          <a href="https://www.11ty.dev/">Construido con Eleventy</a>
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>
