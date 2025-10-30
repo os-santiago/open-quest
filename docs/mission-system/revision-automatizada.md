@@ -20,7 +20,7 @@ de desempeño.
 |------------|-------------|
 | Repositorios de misión | Cada misión vive en un repositorio dentro de la organización `open-quest`. Las ramas `main` alojan entregas aceptadas; las ramas de características contienen el trabajo en curso. |
 | GitHub Actions | Conjunto de _workflows_ que validan el código, calculan experiencia, generan artefactos (hojas de vida) y publican los datos consolidados. |
-| GitHub Pages (os-santiago) | Sitio que muestra los tableros del gremio y la comunidad, alimentado por artefactos generados por los _workflows_. |
+| GitHub Pages (os-santiago) | Sitio que muestra los tableros del gremio y la comunidad, alojado en el repositorio [`os-santiago/os-santiago.github.io`](https://github.com/os-santiago/os-santiago.github.io) y alimentado por artefactos generados por los _workflows_. |
 | Almacenamiento de metadatos | Directorio `docs/hojas-de-vida/` en el repositorio central con archivos YAML/JSON por usuario, gestionado automáticamente. |
 
 ## Flujo de revisión de misiones
@@ -63,9 +63,9 @@ y crea una rama `mission/<id>/<usuario>`.
 - **Tareas**:
   - Instalar Node.js 20 y dependencias de Eleventy (`npm ci`).
   - Construir el sitio estático a partir de los artefactos ubicados en `docs/data/`.
-  - Publicar el artefacto `_site/` y desplegarlo con `actions/deploy-pages@v2` hacia el
-    repositorio de GitHub Pages de la organización (`https://os-santiago.github.io/open-quest/`).
-  - Utilizar el entorno `github-pages` para vincular la URL final dentro de GitHub.
+  - Publicar el contenido generado en `_site/` dentro del repositorio `os-santiago/os-santiago.github.io`
+    utilizando el secreto `OS_SANTIAGO_PAGES_TOKEN`.
+  - Actualizar el entorno `os-santiago-pages` con la URL final (`https://os-santiago.github.io/open-quest/`).
 
 ## Hojas de vida en Open Quest
 
