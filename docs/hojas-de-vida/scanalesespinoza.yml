@@ -8,15 +8,15 @@ arcanum_actual: 80
 insignias:
   - nombre: "Arquitecto de Identidad"
     descripcion: "Diseñó y endureció el onboarding con OAuth/OIDC para los entornos Homedir."
-    otorgada_en: 2025-10-25
+    otorgada_en: "2025-10-25"
     temporada: "2025Q4"
   - nombre: "Comandante de GKE"
     descripcion: "Orquestó despliegues continuos en Kubernetes usando promociones por digest."
-    otorgada_en: 2025-08-31
+    otorgada_en: "2025-08-31"
     temporada: "2025Q3"
   - nombre: "Custodio del Conocimiento"
     descripcion: "Automatizó la ingesta, limpieza y despliegue de bases de conocimiento para Navia."
-    otorgada_en: 2025-10-26
+    otorgada_en: "2025-10-26"
     temporada: "2025Q4"
 misiones:
   - id: engineer-c-oidc-session-optional
@@ -29,7 +29,7 @@ misiones:
     arcanum: 20
     recompensas:
       - "Insignia: Arquitecto de Identidad"
-    fecha: 2025-10-25
+    fecha: "2025-10-25"
     notas: "Inyectó el token de sesión de forma opcional y documentó el flujo local para mantener sesiones consistentes en Homedir."
   - id: engineer-c-gke-digest-promotions
     titulo: "[Engineer][C] Despliegues continuos a GKE por digest"
@@ -41,7 +41,7 @@ misiones:
     arcanum: 20
     recompensas:
       - "Playbook: Releases seguras en GKE"
-    fecha: 2025-08-31
+    fecha: "2025-08-31"
     notas: "Simplificó los workflows de GitHub Actions para promover imágenes por digest y desplegarlas en GKE sin reconstrucciones."
   - id: engineer-b-eventflow-aexperience
     titulo: "[Engineer][B] Experiencia EventFlow aExperience"
@@ -53,7 +53,7 @@ misiones:
     arcanum: 20
     recompensas:
       - "Documento: Laboratorio aExperience"
-    fecha: 2025-10-25
+    fecha: "2025-10-25"
     notas: "Documentó la arquitectura opt-in del módulo EventFlow3 y su integración con la experiencia principal de Homedir."
   - id: engineer-b-elevenlabs-rag-hardening
     titulo: "[Engineer][B] Automatización RAG para Navia"
@@ -65,11 +65,11 @@ misiones:
     arcanum: 20
     recompensas:
       - "Insignia: Custodio del Conocimiento"
-    fecha: 2025-10-26
+    fecha: "2025-10-26"
     notas: "Consolidó los scripts de ingestión y gestión de agentes ElevenLabs para la base Navia, endureciendo fallbacks y trazas."
 resumen:
   total_misiones: 4
-  ultima_mision: 2025-10-26
+  ultima_mision: "2025-10-26"
   xp_por_clase:
     Engineer: 640
   niveles_desbloqueados:
