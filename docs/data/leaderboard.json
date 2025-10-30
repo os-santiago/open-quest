@@ -1,5 +1,5 @@
 {
-  "generated_at": "2025-10-30T02:17:34.877992Z",
+  "generated_at": "2025-10-30T10:29:14.587192Z",
   "temporada": {
     "id": "2025Q4",
     "titulo": "Temporada de Lanzamiento",
@@ -11,17 +11,17 @@
     {
       "posicion": 1,
       "usuario": "scanalesespinoza",
-      "nombre": "Sergio Canales",
-      "clase": "Engineer",
       "nivel": "D1",
-      "rango": "D",
       "xp": 0,
       "misiones": 0,
       "arcanum": 0,
       "estadisticas": {
         "xp_por_clase": {},
         "misiones_por_rango": {}
-      }
+      },
+      "nombre": "Sergio Canales",
+      "clase": "Engineer",
+      "rango": "D"
     }
   ],
   "resumen_global": {

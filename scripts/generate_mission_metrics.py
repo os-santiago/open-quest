@@ -59,10 +59,23 @@ def load_yaml(path: Path) -> Dict:
         raise MetricsError(f"No se pudo analizar '{path}': {exc}") from exc
 
 
+def _convert_for_yaml(value):
+    """Convert mappings so `yaml.safe_dump` can serialize them."""
+
+    if isinstance(value, OrderedDict):
+        return {key: _convert_for_yaml(item) for key, item in value.items()}
+    if isinstance(value, dict):
+        return {key: _convert_for_yaml(item) for key, item in value.items()}
+    if isinstance(value, list):
+        return [_convert_for_yaml(item) for item in value]
+    return value
+
+
 def dump_yaml(data: Dict, path: Path) -> None:
+    converted = _convert_for_yaml(data)
     path.write_text(
         yaml.safe_dump(
-            data,
+            converted,
             sort_keys=False,
             allow_unicode=True,
             width=120,
