@@ -217,24 +217,29 @@ def build_leaderboard(profiles: List[ProfileMetrics]) -> Dict[str, object]:
         total_misiones += profile.misiones
         if profile.clase:
             clases_activas.add(profile.clase)
-        jugadores.append(
-            {
-                "posicion": idx,
-                "usuario": profile.usuario,
-                "nombre": profile.nombre,
-                "clase": profile.clase,
-                "nivel": profile.nivel,
-                "rango": profile.rango,
-                "xp": profile.xp,
-                "misiones": profile.misiones,
-                "ultima_mision": profile.ultima_mision,
-                "arcanum": profile.arcanum,
-                "estadisticas": {
-                    "xp_por_clase": profile.xp_por_clase,
-                    "misiones_por_rango": profile.misiones_por_rango,
-                },
-            }
-        )
+        jugador = {
+            "posicion": idx,
+            "usuario": profile.usuario,
+            "nivel": profile.nivel,
+            "xp": profile.xp,
+            "misiones": profile.misiones,
+            "arcanum": profile.arcanum,
+            "estadisticas": {
+                "xp_por_clase": profile.xp_por_clase,
+                "misiones_por_rango": profile.misiones_por_rango,
+            },
+        }
+
+        if profile.nombre is not None:
+            jugador["nombre"] = profile.nombre
+        if profile.clase is not None:
+            jugador["clase"] = profile.clase
+        if profile.rango is not None:
+            jugador["rango"] = profile.rango
+        if profile.ultima_mision is not None:
+            jugador["ultima_mision"] = profile.ultima_mision
+
+        jugadores.append(jugador)
 
     participantes = len(jugadores)
     xp_promedio = float(total_xp) / participantes if participantes else 0.0
