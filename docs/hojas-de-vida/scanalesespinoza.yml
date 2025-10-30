@@ -7,29 +7,72 @@ xp_total: 640
 arcanum_actual: 80
 insignias:
   - nombre: "Arquitecto de Identidad"
-    descripcion: "Diseñó el onboarding completo con OAuth y OIDC para los entornos Homedir."
+    descripcion: "Diseñó y endureció el onboarding con OAuth/OIDC para los entornos Homedir."
+    otorgada_en: 2025-10-25
+    temporada: "2025Q4"
   - nombre: "Comandante de GKE"
-    descripcion: "Orquestó despliegues continuos en Kubernetes usando GitHub Actions y manifiestos declarativos."
+    descripcion: "Orquestó despliegues continuos en Kubernetes usando promociones por digest."
+    otorgada_en: 2025-08-31
+    temporada: "2025Q3"
   - nombre: "Custodio del Conocimiento"
     descripcion: "Automatizó la ingesta, limpieza y despliegue de bases de conocimiento para Navia."
+    otorgada_en: 2025-10-26
+    temporada: "2025Q4"
 misiones:
-  - titulo: "[Engineer][C] Autenticación Google OIDC para Homedir"
-    xp_otorgada: 160
+  - id: engineer-c-oidc-session-optional
+    titulo: "[Engineer][C] Sesiones OIDC resilientes en Homedir"
+    clase: Engineer
     rango: C
-    descripcion: "Implementó el login empresarial con Google, ajustando application.properties, rutas protegidas y pruebas OAuth para la experiencia privada del sitio."
-  - titulo: "[Engineer][C] Despliegue continuo en GKE"
-    xp_otorgada: 140
+    pr: https://github.com/os-santiago/homedir/pull/10
+    repo: os-santiago/homedir
+    xp: 160
+    arcanum: 20
+    recompensas:
+      - "Insignia: Arquitecto de Identidad"
+    fecha: 2025-10-25
+    notas: "Inyectó el token de sesión de forma opcional y documentó el flujo local para mantener sesiones consistentes en Homedir."
+  - id: engineer-c-gke-digest-promotions
+    titulo: "[Engineer][C] Despliegues continuos a GKE por digest"
+    clase: Engineer
     rango: C
-    descripcion: "Creó los manifiestos de Kubernetes, workflows de GitHub Actions y pipelines de despliegue que llevan Homedir a producción de manera automatizada."
-  - titulo: "[Engineer][B] Experiencia EventFlow y sitio moderno"
-    xp_otorgada: 170
+    pr: https://github.com/os-santiago/homedir/commit/93c4493c7861c3711631507c3fa5650ce58fd9af
+    repo: os-santiago/homedir
+    xp: 140
+    arcanum: 20
+    recompensas:
+      - "Playbook: Releases seguras en GKE"
+    fecha: 2025-08-31
+    notas: "Simplificó los workflows de GitHub Actions para promover imágenes por digest y desplegarlas en GKE sin reconstrucciones."
+  - id: engineer-b-eventflow-aexperience
+    titulo: "[Engineer][B] Experiencia EventFlow aExperience"
+    clase: Engineer
     rango: B
-    descripcion: "Rediseñó el front-end con Qute, añadió gestión completa de eventos y paneles administrativos para el flujo EventFlow."
-  - titulo: "[Engineer][B] Automatización RAG con ElevenLabs"
-    xp_otorgada: 170
+    pr: https://github.com/os-santiago/homedir/pull/7
+    repo: os-santiago/homedir
+    xp: 170
+    arcanum: 20
+    recompensas:
+      - "Documento: Laboratorio aExperience"
+    fecha: 2025-10-25
+    notas: "Documentó la arquitectura opt-in del módulo EventFlow3 y su integración con la experiencia principal de Homedir."
+  - id: engineer-b-elevenlabs-rag-hardening
+    titulo: "[Engineer][B] Automatización RAG para Navia"
+    clase: Engineer
     rango: B
-    descripcion: "Desarrolló scripts de ingesta, limpieza y despliegue para la base de conocimiento Navia, resolviendo errores de APIs, normalización de URLs y compatibilidad con el SDK."
+    pr: https://github.com/os-santiago/homedir/pull/59
+    repo: os-santiago/homedir
+    xp: 170
+    arcanum: 20
+    recompensas:
+      - "Insignia: Custodio del Conocimiento"
+    fecha: 2025-10-26
+    notas: "Consolidó los scripts de ingestión y gestión de agentes ElevenLabs para la base Navia, endureciendo fallbacks y trazas."
 resumen:
   total_misiones: 4
+  ultima_mision: 2025-10-26
   xp_por_clase:
     Engineer: 640
+  niveles_desbloqueados:
+    - D
+    - C
+    - B
