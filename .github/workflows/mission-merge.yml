@@ -39,31 +39,31 @@ jobs:
       - name: Validar artefactos generados
         run: |
           python <<'PY'
-import json
-import pathlib
-import sys
+          import json
+          import pathlib
+          import sys
 
-from jsonschema import Draft202012Validator
+          from jsonschema import Draft202012Validator
 
-root = pathlib.Path('.').resolve()
-leaderboard_path = root / 'docs' / 'data' / 'leaderboard.json'
-schema_path = root / 'docs' / 'schemas' / 'leaderboard.schema.json'
+          root = pathlib.Path('.').resolve()
+          leaderboard_path = root / 'docs' / 'data' / 'leaderboard.json'
+          schema_path = root / 'docs' / 'schemas' / 'leaderboard.schema.json'
 
-if not leaderboard_path.exists():
-    print('No se generó docs/data/leaderboard.json', file=sys.stderr)
-    sys.exit(1)
+          if not leaderboard_path.exists():
+              print('No se generó docs/data/leaderboard.json', file=sys.stderr)
+              sys.exit(1)
 
-schema = json.loads(schema_path.read_text(encoding='utf-8'))
-validator = Draft202012Validator(schema)
+          schema = json.loads(schema_path.read_text(encoding='utf-8'))
+          validator = Draft202012Validator(schema)
 
-data = json.loads(leaderboard_path.read_text(encoding='utf-8'))
-errors = sorted(validator.iter_errors(data), key=lambda e: e.path)
-if errors:
-    for error in errors:
-        location = ' / '.join(str(x) for x in error.path) or 'raíz'
-        print(f"- {location}: {error.message}", file=sys.stderr)
-    sys.exit(1)
-PY
+          data = json.loads(leaderboard_path.read_text(encoding='utf-8'))
+          errors = sorted(validator.iter_errors(data), key=lambda e: e.path)
+          if errors:
+              for error in errors:
+                  location = ' / '.join(str(x) for x in error.path) or 'raíz'
+                  print(f"- {location}: {error.message}", file=sys.stderr)
+              sys.exit(1)
+          PY
 
       - name: Publicar artefactos
         uses: actions/upload-artifact@v4
