@@ -5,6 +5,27 @@ module.exports = function (eleventyConfig) {
     "site/assets": "assets"
   });
 
+  eleventyConfig.addFilter("formatNumber", (value) => {
+    const number = Number(value);
+    if (!Number.isFinite(number)) {
+      return "0";
+    }
+
+    return new Intl.NumberFormat("es-CL").format(number);
+  });
+
+  eleventyConfig.addFilter("formatDecimal", (value, maximumFractionDigits = 1) => {
+    const number = Number(value);
+    if (!Number.isFinite(number)) {
+      return "0";
+    }
+
+    return new Intl.NumberFormat("es-CL", {
+      minimumFractionDigits: 0,
+      maximumFractionDigits
+    }).format(number);
+  });
+
   return {
     dir: {
       input: "site",
