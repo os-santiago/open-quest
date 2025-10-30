@@ -1,0 +1,33 @@
+lang: es
+timezone: America/Santiago
+permalink: pretty
+title: Open Quest
+subtitle: Panel público generado a partir de artefactos automatizados
+description: Panel público con datos generados por los workflows de Open Quest.
+url: ""
+baseurl: ""
+
+remote_theme: cotes2020/jekyll-theme-chirpy
+
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-remote-theme
+  - jekyll-sitemap
+
+exclude:
+  - docs/schemas
+  - scripts
+  - README.md
+  - LICENSE
+  - mission-review-summary.md
+  - mission-merge-summary.md
+  - docs/data/README.md
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: page
+      toc: false
+      comments: false

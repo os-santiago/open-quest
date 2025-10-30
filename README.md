@@ -101,23 +101,29 @@ El siguiente paso en la evolución del Sistema de Colaboración es el desarrollo
 ## Sitio estático y dashboards automáticos
 
 En la etapa 4 del plan incremental se incorpora un sitio estático generado con
-[Eleventy](https://www.11ty.dev/) que consume los artefactos publicados en
-`docs/data/` y el resumen `mission-merge-summary.md`.
+[Jekyll](https://jekyllrb.com/) utilizando el tema [Chirpy](https://github.com/cotes2020/jekyll-theme-chirpy).
+El build consume los artefactos publicados en `docs/data/` y el resumen
+`mission-merge-summary.md` para generar el dashboard publicado en GitHub Pages.
 
 ### Cómo ejecutar el sitio localmente
 
-```bash
-npm install
-npm run dev
-```
-
-El primer comando instala las dependencias (incluido Eleventy) y el segundo
-inicia un servidor local con recarga automática. Para generar la versión lista
-para publicar utiliza:
+Todo lo relacionado con GitHub Pages vive en el directorio
+[`github-pages/`](github-pages/). Desde la raíz del repositorio ejecuta:
 
 ```bash
-npm run build
+cd github-pages
+bundle install
+bundle exec jekyll serve
 ```
 
-El resultado se compila en `_site/`, que está excluido del repositorio para
-mimificar el comportamiento de GitHub Pages.
+El primer comando cambia al directorio del sitio y el segundo resuelve las
+dependencias Ruby (incluido GitHub Pages). Finalmente se inicia un servidor
+local con recarga automática en `http://localhost:4000`. Para generar la versión
+lista para publicar utiliza:
+
+```bash
+bundle exec jekyll build
+```
+
+El resultado se compila en `github-pages/_site/`, que está excluido del
+repositorio para replicar el comportamiento de GitHub Pages.

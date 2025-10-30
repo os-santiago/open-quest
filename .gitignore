@@ -1,5 +1,7 @@
 node_modules/
-_site/
+github-pages/_site/
+github-pages/.jekyll-cache/
+github-pages/.sass-cache/
 .cache/
 .DS_Store
 npm-debug.log*
