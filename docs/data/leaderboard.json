@@ -1,5 +1,5 @@
 {
-  "generated_at": "2025-10-30T10:29:14.587192Z",
+  "generated_at": "2025-10-30T11:36:54Z",
   "temporada": {
     "id": "2025Q4",
     "titulo": "Temporada de Lanzamiento",
@@ -11,23 +11,29 @@
     {
       "posicion": 1,
       "usuario": "scanalesespinoza",
-      "nivel": "D1",
-      "xp": 0,
-      "misiones": 0,
-      "arcanum": 0,
+      "nivel": "B2",
+      "xp": 640,
+      "misiones": 4,
+      "arcanum": 80,
       "estadisticas": {
-        "xp_por_clase": {},
-        "misiones_por_rango": {}
+        "xp_por_clase": {
+          "Engineer": 640
+        },
+        "misiones_por_rango": {
+          "C": 2,
+          "B": 2
+        }
       },
+      "ultima_mision": "2025-10-26T13:49:19Z",
       "nombre": "Sergio Canales",
       "clase": "Engineer",
-      "rango": "D"
+      "rango": "B"
     }
   ],
   "resumen_global": {
     "total_participantes": 1,
-    "xp_promedio": 0.0,
-    "misiones_completadas": 0,
+    "xp_promedio": 640.0,
+    "misiones_completadas": 4,
     "clases_activas": [
       "Engineer"
     ]
