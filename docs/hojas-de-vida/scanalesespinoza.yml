@@ -1,12 +1,35 @@
 usuario: scanalesespinoza
 nombre: Sergio Canales
-nivel: D1
+nivel: B2
 clase: Engineer
-rango_actual: D
-xp_total: 0
-arcanum_actual: 0
-insignias: []
-misiones: []
+rango_actual: B
+xp_total: 640
+arcanum_actual: 80
+insignias:
+  - nombre: "Arquitecto de Identidad"
+    descripcion: "Diseñó el onboarding completo con OAuth y OIDC para los entornos Homedir."
+  - nombre: "Comandante de GKE"
+    descripcion: "Orquestó despliegues continuos en Kubernetes usando GitHub Actions y manifiestos declarativos."
+  - nombre: "Custodio del Conocimiento"
+    descripcion: "Automatizó la ingesta, limpieza y despliegue de bases de conocimiento para Navia."
+misiones:
+  - titulo: "[Engineer][C] Autenticación Google OIDC para Homedir"
+    xp_otorgada: 160
+    rango: C
+    descripcion: "Implementó el login empresarial con Google, ajustando application.properties, rutas protegidas y pruebas OAuth para la experiencia privada del sitio."
+  - titulo: "[Engineer][C] Despliegue continuo en GKE"
+    xp_otorgada: 140
+    rango: C
+    descripcion: "Creó los manifiestos de Kubernetes, workflows de GitHub Actions y pipelines de despliegue que llevan Homedir a producción de manera automatizada."
+  - titulo: "[Engineer][B] Experiencia EventFlow y sitio moderno"
+    xp_otorgada: 170
+    rango: B
+    descripcion: "Rediseñó el front-end con Qute, añadió gestión completa de eventos y paneles administrativos para el flujo EventFlow."
+  - titulo: "[Engineer][B] Automatización RAG con ElevenLabs"
+    xp_otorgada: 170
+    rango: B
+    descripcion: "Desarrolló scripts de ingesta, limpieza y despliegue para la base de conocimiento Navia, resolviendo errores de APIs, normalización de URLs y compatibilidad con el SDK."
 resumen:
-  total_misiones: 0
-  xp_por_clase: {}
+  total_misiones: 4
+  xp_por_clase:
+    Engineer: 640
