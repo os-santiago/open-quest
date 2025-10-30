@@ -35,8 +35,8 @@ jobs:
 
       - name: Run data validations
         id: run_validations
+        shell: python
         run: |
-          python <<'PY'
           import json
           import pathlib
           import sys
@@ -156,7 +156,6 @@ jobs:
 
           if not overall_success:
               sys.exit(1)
-PY
 
       - name: Publish mission review summary
         if: always()
