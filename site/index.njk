@@ -49,6 +49,158 @@ tags:
   {% endif %}
 </section>
 
+{% if analytics.hasData %}
+  <section class="card">
+    <h2>Indicadores avanzados</h2>
+    <div class="highlight-grid">
+      <div class="highlight-card">
+        <h3>XP promedio por jugador</h3>
+        <strong>{{ analytics.xpPromedioPorJugador | formatDecimal(1) }}</strong>
+        <small>Basado en {{ analytics.totalJugadores | formatNumber }} participantes activos.</small>
+      </div>
+      <div class="highlight-card">
+        <h3>XP por misión</h3>
+        <strong>{{ analytics.xpPromedioPorMision | formatDecimal(1) }}</strong>
+        <small>Relación entre {{ analytics.totalMisiones | formatNumber }} misiones y la XP total.</small>
+      </div>
+      <div class="highlight-card">
+        <h3>Nivel promedio</h3>
+        {% if analytics.levelStats.jugadoresConNivel %}
+          <strong>{{ analytics.levelStats.promedio | formatDecimal(1) }}</strong>
+          <small>Niveles registrados: {{ analytics.levelStats.jugadoresConNivel | formatNumber }}.<br>Máximo {{ analytics.levelStats.maximo | formatNumber }}, mínimo {{ analytics.levelStats.minimo | formatNumber }}.</small>
+        {% else %}
+          <strong>—</strong>
+          <small>Todavía no hay niveles registrados.</small>
+        {% endif %}
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Jugadores destacados</h2>
+    <div class="grid grid-2">
+      <div>
+        <h3>Mayor XP acumulada</h3>
+        {% if analytics.topXp.length %}
+          <ol class="metric-list">
+            {% for jugador in analytics.topXp %}
+              <li class="metric-item">
+                <div class="metric-header">
+                  <span class="metric-rank">#{{ loop.index }}</span>
+                  <div>
+                    <strong>{{ jugador.usuario }}</strong>
+                    {% if jugador.nombre %}<br><small>{{ jugador.nombre }}</small>{% endif %}
+                  </div>
+                  <span class="metric-value">{{ jugador.xp | formatNumber }} XP</span>
+                </div>
+                <div class="metric-subtext">
+                  <span>{{ jugador.clase }}</span>
+                  {% if jugador.nivel %}<span>Nivel {{ jugador.nivel | formatNumber }}</span>{% endif %}
+                  <span>{{ jugador.misiones | formatNumber }} misiones</span>
+                </div>
+              </li>
+            {% endfor %}
+          </ol>
+        {% else %}
+          <div class="empty-state">Todavía no hay XP registrada en el leaderboard.</div>
+        {% endif %}
+      </div>
+      <div>
+        <h3>Más misiones completadas</h3>
+        {% if analytics.topMisiones.length %}
+          <ol class="metric-list">
+            {% for jugador in analytics.topMisiones %}
+              <li class="metric-item">
+                <div class="metric-header">
+                  <span class="metric-rank">#{{ loop.index }}</span>
+                  <div>
+                    <strong>{{ jugador.usuario }}</strong>
+                    {% if jugador.nombre %}<br><small>{{ jugador.nombre }}</small>{% endif %}
+                  </div>
+                  <span class="metric-value">{{ jugador.misiones | formatNumber }} misiones</span>
+                </div>
+                <div class="metric-subtext">
+                  <span>{{ jugador.clase }}</span>
+                  {% if jugador.nivel %}<span>Nivel {{ jugador.nivel | formatNumber }}</span>{% endif %}
+                  <span>{{ jugador.xp | formatNumber }} XP</span>
+                </div>
+              </li>
+            {% endfor %}
+          </ol>
+        {% else %}
+          <div class="empty-state">Todavía no se han registrado misiones.</div>
+        {% endif %}
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Rendimiento por clase</h2>
+    {% if analytics.classBreakdown.length %}
+      <ul class="progress-list">
+        {% for clase in analytics.classBreakdown %}
+          <li>
+            <div class="progress-item-header">
+              <span><strong>{{ clase.nombre }}</strong></span>
+              <span>{{ clase.totalXp | formatNumber }} XP</span>
+            </div>
+            <div class="progress-bar">
+              <span style="width: {{ clase.participacionXp | round(1) }}%"></span>
+            </div>
+            <div class="progress-footer">
+              <span>{{ clase.participantes | formatNumber }} participantes</span>
+              <span>XP promedio: {{ clase.xpPromedio | formatDecimal(1) }}</span>
+              <span>Misiones promedio: {{ clase.misionesPromedio | formatDecimal(1) }}</span>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <div class="empty-state">No hay clases registradas en el leaderboard.</div>
+    {% endif %}
+  </section>
+
+  <section class="card">
+    <h2>Distribución de rangos</h2>
+    {% if analytics.rankDistribution.length %}
+      <ul class="rank-chips">
+        {% for rank in analytics.rankDistribution %}
+          <li>
+            <strong>{{ rank.nombre }}</strong>
+            <span>{{ rank.participantes | formatNumber }}</span>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <div class="empty-state">Los rangos aparecerán cuando se registren participantes.</div>
+    {% endif %}
+  </section>
+
+  <section class="card">
+    <h2>Misiones más recientes</h2>
+    {% if analytics.latestMissions.length %}
+      <ol class="timeline">
+        {% for item in analytics.latestMissions %}
+          <li class="timeline-item">
+            <div>
+              <strong>{{ item.usuario }}</strong>
+              {% if item.nombre %}<br><small>{{ item.nombre }}</small>{% endif %}
+            </div>
+            <div class="timeline-meta">
+              <span>{{ item.clase }}</span>
+              <span>{{ item.misiones | formatNumber }} misiones</span>
+              <span>{{ item.xp | formatNumber }} XP</span>
+              <time datetime="{{ item.ultimaMisionISO }}">{{ item.ultimaMisionLabel }}</time>
+            </div>
+          </li>
+        {% endfor %}
+      </ol>
+    {% else %}
+      <div class="empty-state">Cuando haya actividad reciente, la veremos aquí en forma de línea de tiempo.</div>
+    {% endif %}
+  </section>
+{% endif %}
+
 <section class="card">
   <h2>Actividad reciente</h2>
   {% if missionSummary.generatedAt %}
