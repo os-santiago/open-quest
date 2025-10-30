@@ -1,0 +1,182 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://openquest.dev/schemas/hoja-de-vida.schema.json",
+  "title": "HojaDeVida",
+  "description": "Perfil consolidado de progreso para un aprendiz del gremio Open Quest.",
+  "type": "object",
+  "required": ["usuario", "nombre", "nivel", "xp_total", "misiones"],
+  "additionalProperties": false,
+  "properties": {
+    "usuario": {
+      "type": "string",
+      "description": "Nombre de usuario de GitHub del aprendiz.",
+      "pattern": "^[a-zA-Z0-9](?:-?[a-zA-Z0-9]){0,38}$"
+    },
+    "nombre": {
+      "type": "string",
+      "description": "Nombre completo preferido del aprendiz.",
+      "minLength": 1,
+      "maxLength": 120
+    },
+    "nivel": {
+      "type": "string",
+      "description": "Identificador del nivel actual (por ejemplo, 'C2' o 'B').",
+      "minLength": 1,
+      "maxLength": 5
+    },
+    "clase": {
+      "type": "string",
+      "description": "Profesión principal dentro del gremio (Engineer, Scientist, Warrior, Mage).",
+      "enum": ["Engineer", "Scientist", "Warrior", "Mage"],
+      "default": "Engineer"
+    },
+    "rango_actual": {
+      "type": "string",
+      "description": "Rango vigente dentro de la progresión de Open Quest (E, D, C, B, A, S, SS).",
+      "enum": ["E", "D", "C", "B", "A", "S", "SS"]
+    },
+    "xp_total": {
+      "type": "integer",
+      "description": "Experiencia acumulada en puntos.",
+      "minimum": 0
+    },
+    "arcanum_actual": {
+      "type": "integer",
+      "description": "Saldo disponible de Arcanum (moneda interna).",
+      "minimum": 0,
+      "default": 0
+    },
+    "insignias": {
+      "type": "array",
+      "description": "Listado de insignias obtenidas por hitos o temporadas.",
+      "items": {
+        "type": "object",
+        "required": ["nombre", "otorgada_en"],
+        "additionalProperties": false,
+        "properties": {
+          "nombre": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 80
+          },
+          "descripcion": {
+            "type": "string",
+            "maxLength": 280
+          },
+          "otorgada_en": {
+            "type": "string",
+            "format": "date",
+            "description": "Fecha en la que se otorgó la insignia (ISO8601)."
+          },
+          "temporada": {
+            "type": "string",
+            "description": "Identificador de la temporada o campaña asociada.",
+            "maxLength": 40
+          }
+        }
+      },
+      "default": []
+    },
+    "misiones": {
+      "type": "array",
+      "description": "Misiones completadas por el aprendiz en orden cronológico inverso.",
+      "items": {
+        "type": "object",
+        "required": ["id", "titulo", "pr", "xp", "fecha"],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Identificador único de la misión (slug).",
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+            "maxLength": 60
+          },
+          "titulo": {
+            "type": "string",
+            "description": "Título publicado de la misión.",
+            "minLength": 3,
+            "maxLength": 140
+          },
+          "clase": {
+            "type": "string",
+            "enum": ["Engineer", "Scientist", "Warrior", "Mage"]
+          },
+          "rango": {
+            "type": "string",
+            "enum": ["E", "D", "C", "B", "A", "S", "SS"]
+          },
+          "pr": {
+            "type": "string",
+            "description": "URL del pull request que completó la misión.",
+            "format": "uri"
+          },
+          "repo": {
+            "type": "string",
+            "description": "Repositorio de GitHub en formato owner/repo.",
+            "pattern": "^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$"
+          },
+          "xp": {
+            "type": "integer",
+            "description": "Puntos de experiencia otorgados.",
+            "minimum": 0
+          },
+          "arcanum": {
+            "type": "integer",
+            "description": "Cantidad de Arcanum otorgada por la misión.",
+            "minimum": 0,
+            "default": 0
+          },
+          "recompensas": {
+            "type": "array",
+            "description": "Recompensas adicionales desbloqueadas.",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 120
+            },
+            "default": []
+          },
+          "fecha": {
+            "type": "string",
+            "description": "Fecha de finalización de la misión (ISO8601).",
+            "format": "date"
+          },
+          "notas": {
+            "type": "string",
+            "description": "Notas adicionales relevantes para la misión.",
+            "maxLength": 500
+          }
+        }
+      }
+    },
+    "resumen": {
+      "type": "object",
+      "description": "Estadísticas derivadas para acelerar cálculos en el sitio público.",
+      "additionalProperties": false,
+      "properties": {
+        "total_misiones": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "ultima_mision": {
+          "type": "string",
+          "format": "date"
+        },
+        "xp_por_clase": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "niveles_desbloqueados": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 5
+          }
+        }
+      }
+    }
+  }
+}

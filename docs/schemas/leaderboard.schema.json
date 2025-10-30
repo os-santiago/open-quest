@@ -1,0 +1,145 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://openquest.dev/schemas/leaderboard.schema.json",
+  "title": "Leaderboard",
+  "description": "Resumen consolidado de posiciones del gremio Open Quest para publicación en GitHub Pages.",
+  "type": "object",
+  "required": ["generated_at", "temporada", "jugadores"],
+  "additionalProperties": false,
+  "properties": {
+    "generated_at": {
+      "type": "string",
+      "description": "Marca de tiempo en la que se generó el leaderboard (ISO8601).",
+      "format": "date-time"
+    },
+    "temporada": {
+      "type": "object",
+      "description": "Metadatos de la temporada vigente.",
+      "required": ["id", "titulo"],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[0-9]{4}Q[1-4]$",
+          "description": "Identificador de temporada, por ejemplo 2024Q1."
+        },
+        "titulo": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 80
+        },
+        "descripcion": {
+          "type": "string",
+          "maxLength": 280
+        },
+        "inicio": {
+          "type": "string",
+          "format": "date"
+        },
+        "fin": {
+          "type": "string",
+          "format": "date"
+        }
+      }
+    },
+    "jugadores": {
+      "type": "array",
+      "description": "Listado ordenado de jugadores con métricas resumidas.",
+      "items": {
+        "type": "object",
+        "required": ["posicion", "usuario", "xp", "nivel", "misiones"],
+        "additionalProperties": false,
+        "properties": {
+          "posicion": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "usuario": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9](?:-?[a-zA-Z0-9]){0,38}$"
+          },
+          "nombre": {
+            "type": "string",
+            "maxLength": 120
+          },
+          "clase": {
+            "type": "string",
+            "enum": ["Engineer", "Scientist", "Warrior", "Mage"]
+          },
+          "nivel": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 5
+          },
+          "rango": {
+            "type": "string",
+            "enum": ["E", "D", "C", "B", "A", "S", "SS"]
+          },
+          "xp": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "misiones": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "ultima_mision": {
+            "type": "string",
+            "format": "date"
+          },
+          "arcanum": {
+            "type": "integer",
+            "minimum": 0,
+            "default": 0
+          },
+          "estadisticas": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "xp_por_clase": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "misiones_por_rango": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "resumen_global": {
+      "type": "object",
+      "description": "Agregados globales utilizados para dashboards.",
+      "additionalProperties": false,
+      "properties": {
+        "total_participantes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "xp_promedio": {
+          "type": "number",
+          "minimum": 0
+        },
+        "misiones_completadas": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "clases_activas": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["Engineer", "Scientist", "Warrior", "Mage"]
+          }
+        }
+      }
+    }
+  }
+}
