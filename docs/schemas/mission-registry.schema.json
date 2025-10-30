@@ -10,7 +10,7 @@
     "version": {
       "type": "string",
       "description": "Versión semántica del catálogo.",
-      "pattern": "^v?[0-9]+\.[0-9]+\.[0-9]+$"
+      "pattern": "^v?[0-9]+\\.[0-9]+\\.[0-9]+$"
     },
     "actualizado_en": {
       "type": "string",
