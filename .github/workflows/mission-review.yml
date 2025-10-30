@@ -37,125 +37,125 @@ jobs:
         id: run_validations
         run: |
           python <<'PY'
-import json
-import pathlib
-import sys
-from datetime import datetime
+          import json
+          import pathlib
+          import sys
+          from datetime import datetime
 
-import yaml
-from jsonschema import Draft202012Validator
+          import yaml
+          from jsonschema import Draft202012Validator
 
-root = pathlib.Path('.').resolve()
-summary_path = root / 'mission-review-summary.md'
-report_sections = []
-overall_success = True
+          root = pathlib.Path('.').resolve()
+          summary_path = root / 'mission-review-summary.md'
+          report_sections = []
+          overall_success = True
 
-# Validar hojas de vida
-hojas_dir = root / 'docs' / 'hojas-de-vida'
-schema_path = root / 'docs' / 'schemas' / 'hoja-de-vida.schema.json'
-if schema_path.exists():
-    schema = json.loads(schema_path.read_text())
-    validator = Draft202012Validator(schema)
-    lines = ['## Validación de hojas de vida']
-    registros = [p for p in sorted(hojas_dir.glob('*.yml')) if p.name not in {'TEMPLATE.yml'}]
-    if not registros:
-        lines.append('> No se encontraron hojas de vida para validar.')
-    else:
-        for registro in registros:
-            if registro.name.endswith('.md'):
-                continue
-            try:
-                data = yaml.safe_load(registro.read_text())
-            except yaml.YAMLError as exc:
-                overall_success = False
-                lines.append(f"- :x: `{registro}`")
-                lines.append(f"  - Error de formato YAML: {exc}")
-                continue
-            errors = sorted(validator.iter_errors(data), key=lambda e: e.path)
-            if errors:
-                overall_success = False
-                lines.append(f"- :x: `{registro}`")
-                for err in errors:
-                    location = ' / '.join(str(x) for x in err.path) or 'raíz'
-                    lines.append(f"  - {location}: {err.message}")
-            else:
-                lines.append(f"- :white_check_mark: `{registro}`")
-    report_sections.append('\n'.join(lines))
-else:
-    report_sections.append('## Validación de hojas de vida\n> No se encontró el esquema `hoja-de-vida.schema.json`.')
-    overall_success = False
+          # Validar hojas de vida
+          hojas_dir = root / 'docs' / 'hojas-de-vida'
+          schema_path = root / 'docs' / 'schemas' / 'hoja-de-vida.schema.json'
+          if schema_path.exists():
+              schema = json.loads(schema_path.read_text())
+              validator = Draft202012Validator(schema)
+              lines = ['## Validación de hojas de vida']
+              registros = [p for p in sorted(hojas_dir.glob('*.yml')) if p.name not in {'TEMPLATE.yml'}]
+              if not registros:
+                  lines.append('> No se encontraron hojas de vida para validar.')
+              else:
+                  for registro in registros:
+                      if registro.name.endswith('.md'):
+                          continue
+                      try:
+                          data = yaml.safe_load(registro.read_text())
+                      except yaml.YAMLError as exc:
+                          overall_success = False
+                          lines.append(f"- :x: `{registro}`")
+                          lines.append(f"  - Error de formato YAML: {exc}")
+                          continue
+                      errors = sorted(validator.iter_errors(data), key=lambda e: e.path)
+                      if errors:
+                          overall_success = False
+                          lines.append(f"- :x: `{registro}`")
+                          for err in errors:
+                              location = ' / '.join(str(x) for x in err.path) or 'raíz'
+                              lines.append(f"  - {location}: {err.message}")
+                      else:
+                          lines.append(f"- :white_check_mark: `{registro}`")
+              report_sections.append('\n'.join(lines))
+          else:
+              report_sections.append('## Validación de hojas de vida\n> No se encontró el esquema `hoja-de-vida.schema.json`.')
+              overall_success = False
 
-# Registro de misiones (opcional)
-missions_path = root / 'docs' / 'data' / 'missions.json'
-missions_schema_path = root / 'docs' / 'schemas' / 'mission-registry.schema.json'
-if missions_path.exists():
-    if missions_schema_path.exists():
-        schema = json.loads(missions_schema_path.read_text())
-        validator = Draft202012Validator(schema)
-        lines = ['## Validación del catálogo de misiones']
-        try:
-            data = json.loads(missions_path.read_text())
-        except json.JSONDecodeError as exc:
-            overall_success = False
-            lines.append(f"- :x: `docs/data/missions.json`")
-            lines.append(f"  - Error de formato JSON en línea {exc.lineno}, columna {exc.colno}: {exc.msg}.")
-            data = None
-        if data is not None:
-            errors = sorted(validator.iter_errors(data), key=lambda e: e.path)
-            if errors:
-                overall_success = False
-                lines.append(f"- :x: `docs/data/missions.json`")
-                for err in errors:
-                    location = ' / '.join(str(x) for x in err.path) or 'raíz'
-                    lines.append(f"  - {location}: {err.message}")
-            else:
-                lines.append(f"- :white_check_mark: `docs/data/missions.json`")
-        report_sections.append('\n'.join(lines))
-    else:
-        report_sections.append('## Validación del catálogo de misiones\n> No se encontró el esquema `mission-registry.schema.json`.')
-        overall_success = False
-else:
-    report_sections.append('## Validación del catálogo de misiones\n> `docs/data/missions.json` aún no existe, se omitió esta verificación.')
+          # Registro de misiones (opcional)
+          missions_path = root / 'docs' / 'data' / 'missions.json'
+          missions_schema_path = root / 'docs' / 'schemas' / 'mission-registry.schema.json'
+          if missions_path.exists():
+              if missions_schema_path.exists():
+                  schema = json.loads(missions_schema_path.read_text())
+                  validator = Draft202012Validator(schema)
+                  lines = ['## Validación del catálogo de misiones']
+                  try:
+                      data = json.loads(missions_path.read_text())
+                  except json.JSONDecodeError as exc:
+                      overall_success = False
+                      lines.append(f"- :x: `docs/data/missions.json`")
+                      lines.append(f"  - Error de formato JSON en línea {exc.lineno}, columna {exc.colno}: {exc.msg}.")
+                      data = None
+                  if data is not None:
+                      errors = sorted(validator.iter_errors(data), key=lambda e: e.path)
+                      if errors:
+                          overall_success = False
+                          lines.append(f"- :x: `docs/data/missions.json`")
+                          for err in errors:
+                              location = ' / '.join(str(x) for x in err.path) or 'raíz'
+                              lines.append(f"  - {location}: {err.message}")
+                      else:
+                          lines.append(f"- :white_check_mark: `docs/data/missions.json`")
+                  report_sections.append('\n'.join(lines))
+              else:
+                  report_sections.append('## Validación del catálogo de misiones\n> No se encontró el esquema `mission-registry.schema.json`.')
+                  overall_success = False
+          else:
+              report_sections.append('## Validación del catálogo de misiones\n> `docs/data/missions.json` aún no existe, se omitió esta verificación.')
 
-# Leaderboard (opcional)
-leaderboard_path = root / 'docs' / 'data' / 'leaderboard.json'
-leaderboard_schema_path = root / 'docs' / 'schemas' / 'leaderboard.schema.json'
-if leaderboard_path.exists():
-    if leaderboard_schema_path.exists():
-        schema = json.loads(leaderboard_schema_path.read_text())
-        validator = Draft202012Validator(schema)
-        lines = ['## Validación de leaderboard']
-        try:
-            data = json.loads(leaderboard_path.read_text())
-        except json.JSONDecodeError as exc:
-            overall_success = False
-            lines.append(f"- :x: `docs/data/leaderboard.json`")
-            lines.append(f"  - Error de formato JSON en línea {exc.lineno}, columna {exc.colno}: {exc.msg}.")
-            data = None
-        if data is not None:
-            errors = sorted(validator.iter_errors(data), key=lambda e: e.path)
-            if errors:
-                overall_success = False
-                lines.append(f"- :x: `docs/data/leaderboard.json`")
-                for err in errors:
-                    location = ' / '.join(str(x) for x in err.path) or 'raíz'
-                    lines.append(f"  - {location}: {err.message}")
-            else:
-                lines.append(f"- :white_check_mark: `docs/data/leaderboard.json`")
-        report_sections.append('\n'.join(lines))
-    else:
-        report_sections.append('## Validación de leaderboard\n> No se encontró el esquema `leaderboard.schema.json`.')
-        overall_success = False
-else:
-    report_sections.append('## Validación de leaderboard\n> `docs/data/leaderboard.json` aún no existe, se omitió esta verificación.')
+          # Leaderboard (opcional)
+          leaderboard_path = root / 'docs' / 'data' / 'leaderboard.json'
+          leaderboard_schema_path = root / 'docs' / 'schemas' / 'leaderboard.schema.json'
+          if leaderboard_path.exists():
+              if leaderboard_schema_path.exists():
+                  schema = json.loads(leaderboard_schema_path.read_text())
+                  validator = Draft202012Validator(schema)
+                  lines = ['## Validación de leaderboard']
+                  try:
+                      data = json.loads(leaderboard_path.read_text())
+                  except json.JSONDecodeError as exc:
+                      overall_success = False
+                      lines.append(f"- :x: `docs/data/leaderboard.json`")
+                      lines.append(f"  - Error de formato JSON en línea {exc.lineno}, columna {exc.colno}: {exc.msg}.")
+                      data = None
+                  if data is not None:
+                      errors = sorted(validator.iter_errors(data), key=lambda e: e.path)
+                      if errors:
+                          overall_success = False
+                          lines.append(f"- :x: `docs/data/leaderboard.json`")
+                          for err in errors:
+                              location = ' / '.join(str(x) for x in err.path) or 'raíz'
+                              lines.append(f"  - {location}: {err.message}")
+                      else:
+                          lines.append(f"- :white_check_mark: `docs/data/leaderboard.json`")
+                  report_sections.append('\n'.join(lines))
+              else:
+                  report_sections.append('## Validación de leaderboard\n> No se encontró el esquema `leaderboard.schema.json`.')
+                  overall_success = False
+          else:
+              report_sections.append('## Validación de leaderboard\n> `docs/data/leaderboard.json` aún no existe, se omitió esta verificación.')
 
-header = '### Resumen de Mission Review\n'
-header += f"Última actualización: {datetime.utcnow().isoformat()}Z\n"
-content = '\n\n'.join([header] + report_sections)
-summary_path.write_text(content, encoding='utf-8')
+          header = '### Resumen de Mission Review\n'
+          header += f"Última actualización: {datetime.utcnow().isoformat()}Z\n"
+          content = '\n\n'.join([header] + report_sections)
+          summary_path.write_text(content, encoding='utf-8')
 
-if not overall_success:
-    sys.exit(1)
+          if not overall_success:
+              sys.exit(1)
 PY
 
       - name: Publish mission review summary
