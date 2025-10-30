@@ -1,0 +1,160 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://openquest.dev/schemas/mission-registry.schema.json",
+  "title": "MissionRegistry",
+  "description": "Catálogo oficial de misiones disponibles para el gremio Open Quest.",
+  "type": "object",
+  "required": ["version", "misiones"],
+  "additionalProperties": false,
+  "properties": {
+    "version": {
+      "type": "string",
+      "description": "Versión semántica del catálogo.",
+      "pattern": "^v?[0-9]+\.[0-9]+\.[0-9]+$"
+    },
+    "actualizado_en": {
+      "type": "string",
+      "description": "Marca de tiempo de actualización del catálogo (ISO8601).",
+      "format": "date-time"
+    },
+    "misiones": {
+      "type": "array",
+      "description": "Listado de misiones en el catálogo.",
+      "items": {
+        "type": "object",
+        "required": ["id", "titulo", "clase", "rango", "xp", "repositorio"],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+            "maxLength": 60
+          },
+          "titulo": {
+            "type": "string",
+            "minLength": 5,
+            "maxLength": 120
+          },
+          "descripcion": {
+            "type": "string",
+            "minLength": 20,
+            "maxLength": 800
+          },
+          "clase": {
+            "type": "string",
+            "enum": ["Engineer", "Scientist", "Warrior", "Mage"]
+          },
+          "rango": {
+            "type": "string",
+            "enum": ["E", "D", "C", "B", "A", "S", "SS"]
+          },
+          "tipo": {
+            "type": "string",
+            "enum": ["core", "sidequest", "evento", "mentoria"],
+            "default": "core"
+          },
+          "xp": {
+            "type": "object",
+            "required": ["base"],
+            "additionalProperties": false,
+            "properties": {
+              "base": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "bono_documentacion": {
+                "type": "integer",
+                "minimum": 0,
+                "default": 0
+              },
+              "bono_colaboracion": {
+                "type": "integer",
+                "minimum": 0,
+                "default": 0
+              }
+            }
+          },
+          "recompensas": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 120
+            }
+          },
+          "habilidades": {
+            "type": "array",
+            "description": "Etiquetas de habilidades trabajadas en la misión.",
+            "items": {
+              "type": "string",
+              "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+              "maxLength": 40
+            }
+          },
+          "repositorio": {
+            "type": "string",
+            "description": "Repositorio origen del reto (owner/repo).",
+            "pattern": "^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$"
+          },
+          "ramas_reservadas": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[a-z0-9]+(?:[\/-][a-z0-9]+)*$"
+            },
+            "default": [
+              "main",
+              "mission"
+            ]
+          },
+          "entregables": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 5,
+              "maxLength": 120
+            }
+          },
+          "criterios_aceptacion": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 5,
+              "maxLength": 200
+            }
+          },
+          "dependencias": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+            }
+          },
+          "recursos": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["titulo", "url"],
+              "additionalProperties": false,
+              "properties": {
+                "titulo": {
+                  "type": "string",
+                  "minLength": 3,
+                  "maxLength": 120
+                },
+                "url": {
+                  "type": "string",
+                  "format": "uri"
+                },
+                "descripcion": {
+                  "type": "string",
+                  "maxLength": 200
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

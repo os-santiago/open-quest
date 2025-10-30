@@ -1,0 +1,33 @@
+# Plantilla de hoja de vida para aprendices Open Quest.
+# Crea una copia de este archivo en docs/hojas-de-vida/<tu-usuario>.yml y reemplaza los valores.
+# Los workflows automatizados actualizarán las secciones de misiones y resumen después de cada merge.
+usuario: github-username
+nombre: Nombre Apellido
+nivel: C1
+clase: Engineer
+rango_actual: C
+xp_total: 0
+arcanum_actual: 0
+insignias: []
+misiones:
+  - id: ejemplo-mision-inicial
+    titulo: "[Engineer][C] Nombre de la misión"
+    clase: Engineer
+    rango: C
+    pr: https://github.com/open-quest/mision-ejemplo/pull/1
+    repo: open-quest/mision-ejemplo
+    xp: 120
+    arcanum: 15
+    recompensas:
+      - "Insignia: Documentación Magistral"
+    fecha: 2024-01-15
+    notas: "Resumen breve de la misión completada."
+
+resumen:
+  total_misiones: 1
+  ultima_mision: 2024-01-15
+  xp_por_clase:
+    Engineer: 120
+  niveles_desbloqueados:
+    - D
+    - C
