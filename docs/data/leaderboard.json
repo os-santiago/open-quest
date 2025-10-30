@@ -1,0 +1,15 @@
+{
+  "generated_at": "2025-10-30T01:11:26.878325Z",
+  "temporada": {
+    "id": "0000Q0",
+    "titulo": "Temporada por definir",
+    "descripcion": "Configura docs/data/season.json para personalizar este valor."
+  },
+  "jugadores": [],
+  "resumen_global": {
+    "total_participantes": 0,
+    "xp_promedio": 0.0,
+    "misiones_completadas": 0,
+    "clases_activas": []
+  }
+}
