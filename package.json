@@ -1,0 +1,13 @@
+{
+  "name": "open-quest-site",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "ELEVENTY_ENV=production eleventy",
+    "dev": "eleventy --serve --watch",
+    "check": "eleventy --dryrun"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^2.0.1"
+  }
+}
