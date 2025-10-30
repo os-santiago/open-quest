@@ -61,9 +61,9 @@ y crea una rama `mission/<id>/<usuario>`.
 - **Eventos**: `workflow_run` (en éxito de `mission-merge.yml`) y ejecución manual vía
   `workflow_dispatch`.
 - **Tareas**:
-  - Instalar Node.js 20 y dependencias de Eleventy (`npm ci`).
+  - Cambiar al directorio `github-pages/` y instalar Ruby 3.x junto con las dependencias de Jekyll (`bundle install`).
   - Construir el sitio estático a partir de los artefactos ubicados en `docs/data/`.
-  - Publicar el contenido generado en `_site/` dentro del repositorio `os-santiago/os-santiago.github.io`
+  - Publicar el contenido generado en `github-pages/_site/` dentro del repositorio `os-santiago/os-santiago.github.io`
     utilizando el secreto `OS_SANTIAGO_PAGES_TOKEN`.
   - Actualizar el entorno `os-santiago-pages` con la URL final (`https://os-santiago.github.io/open-quest/`).
 
@@ -113,7 +113,7 @@ y crea una rama `mission/<id>/<usuario>`.
 1. Definir esquemas de datos y crear plantillas de hojas de vida.
 2. Configurar `mission-review.yml` con validaciones básicas y publicación de resultados.
 3. Implementar `mission-merge.yml` con generación de métricas y artefactos.
-4. Crear el sitio estático (por ejemplo, con Eleventy) y adaptarlo para consumir los
+4. Crear el sitio estático (por ejemplo, con Jekyll) y adaptarlo para consumir los
    artefactos generados.
 5. Desplegar `pages-build.yml` y conectar el repositorio de GitHub Pages de os-santiago.
 6. Iterar agregando paneles adicionales, métricas avanzadas y visualizaciones.
