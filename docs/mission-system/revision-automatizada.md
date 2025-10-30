@@ -58,12 +58,14 @@ y crea una rama `mission/<id>/<usuario>`.
   - Generar un resumen estático (`docs/data/leaderboard.json`) con todos los puntajes.
 
 ### 3. `pages-build.yml`
-- **Eventos**: `workflow_run` (en éxito de `mission-merge.yml`).
+- **Eventos**: `workflow_run` (en éxito de `mission-merge.yml`) y ejecución manual vía
+  `workflow_dispatch`.
 - **Tareas**:
-  - Instalar herramientas de generación estática (por ejemplo, Eleventy o Astro).
-  - Consumir `docs/data/leaderboard.json` y las hojas de vida individuales.
-  - Construir el sitio de GitHub Pages alojado en `os-santiago.github.io/open-quest`.
-  - Desplegar mediante la acción oficial `actions/deploy-pages@v2`.
+  - Instalar Node.js 20 y dependencias de Eleventy (`npm ci`).
+  - Construir el sitio estático a partir de los artefactos ubicados en `docs/data/`.
+  - Publicar el artefacto `_site/` y desplegarlo con `actions/deploy-pages@v2` hacia el
+    repositorio de GitHub Pages de la organización (`https://os-santiago.github.io/open-quest/`).
+  - Utilizar el entorno `github-pages` para vincular la URL final dentro de GitHub.
 
 ## Hojas de vida en Open Quest
 
